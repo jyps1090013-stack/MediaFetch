@@ -1,0 +1,13 @@
+/* 系統頂級選單 (雖然系統會自動處理，但保留供參考) */
+"File" = "檔案";
+"Edit" = "編輯";
+"View" = "顯示";
+"Window" = "視窗";
+"Help" = "說明";
+
+/* 自定義選單項目 */
+"About MediaFetch" = "關於 MediaFetch";
+"NewDownloadTask" = "新增下載任務";
+"Tools" = "工具";
+"ConverterTool" = "轉檔工具";
+"CheckDependencies" = "重新檢查依賴";
