@@ -5,7 +5,31 @@
 MediaFetch is an open-source macOS application designed to make downloading online videos more convenient through a native graphical interface. It provides a graphical alternative to using video downloading tools entirely through the command line.
 
 Built with SwiftUI, MediaFetch combines video downloading and media conversion workflows in an application designed specifically for macOS.
+## Screenshots｜應用程式展示
 
+### Main Window｜主畫面
+
+![MediaFetch 主畫面](主畫面.png)
+
+### New Download Task｜新增下載任務
+
+![新增下載任務](新增下載任務的畫面.png)
+
+### Select Download Format｜選擇下載格式
+
+![解析完成與格式選擇](解析完成要準備選擇格式開始下載的畫面.png)
+
+### Downloading｜下載中
+
+![下載進度](下載中.png)
+
+### Download Completed｜下載完成
+
+![下載完成](下載完成.png)
+
+### Download Logs｜下載日誌
+
+![下載完成與日誌介面](下載完成，然後打開日誌的介面.png)
 ## Features
 
 - **Native macOS interface** — Built with SwiftUI for a familiar macOS experience.
