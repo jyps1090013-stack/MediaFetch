@@ -40,7 +40,7 @@ struct AboutView: View {
             HStack {
                 Button {
                     NSWorkspace.shared.open(
-                        URL(string: "https://github.com")!
+                        URL(string: "https://github.com/jyps1090013-stack/MediaFetch")!
                     )
                 } label: {
                     Label("GitHub", systemImage: "link")
