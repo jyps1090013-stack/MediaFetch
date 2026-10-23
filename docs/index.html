@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8fc">
+  <meta name="description" content="MediaFetch — 一款為 macOS 打造的開源媒體下載工具。A native-feeling open-source media downloader for macOS.">
+  <title>MediaFetch — 讓媒體下載，回歸簡單。</title>
+  <style>
+    :root{--bg:#f7f8fc;--surface:rgba(255,255,255,.82);--text:#171923;--muted:#72798b;--blue:#4169e1;--blue-dark:#3053c7;--border:rgba(35,49,85,.10);--radius:24px;--max:1160px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}
+    body{margin:0;background:radial-gradient(ellipse at 50% -15%,#e2eaff 0%,transparent 48%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",sans-serif;-webkit-font-smoothing:antialiased;line-height:1.65}
+    a{color:inherit;text-decoration:none}button{font:inherit}.container{width:min(var(--max),calc(100% - 48px));margin:auto}
+    .nav-wrap{position:sticky;top:0;z-index:10;background:rgba(247,248,252,.82);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(35,49,85,.07)}
+    nav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:11px;font-size:19px;font-weight:780;letter-spacing:-.6px;white-space:nowrap}
+    .brand-icon{display:block;width:39px;height:39px;flex:0 0 39px;object-fit:contain;border-radius:10px}
+    .nav-right,.nav-links{display:flex;align-items:center;gap:25px}.nav-links a{color:var(--muted);font-size:13px;transition:color .2s}.nav-links a:hover{color:var(--blue)}
+    .language-button{padding:8px 12px;border:1px solid var(--border);border-radius:100px;background:rgba(255,255,255,.65);cursor:pointer;font-size:12px;font-weight:700;white-space:nowrap}
+    .language-button:hover{background:white}.hero{text-align:center;padding:92px 0 70px}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid #4169e124;border-radius:100px;background:#ffffffad;color:var(--blue);font-size:12px;font-weight:700}
+    .dot{width:7px;height:7px;border-radius:50%;background:#43bd88;box-shadow:0 0 0 3px #43bd881f}.hero h1{max-width:850px;margin:24px auto 20px;font-size:clamp(43px,7.2vw,78px);font-weight:790;letter-spacing:-4px;line-height:1.1}
+    .gradient{background:linear-gradient(100deg,#6388f5,#7862df 55%,#a16ed6);background-clip:text;-webkit-background-clip:text;color:transparent}
+    .hero-description{max-width:650px;margin:auto;color:var(--muted);font-size:17px;line-height:1.9}.hero-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:29px}
+    .button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:0 21px;border-radius:14px;font-size:14px;font-weight:720;transition:transform .2s,box-shadow .2s}.button:hover{transform:translateY(-2px)}
+    .primary{color:white;background:linear-gradient(135deg,#537af0,#385bd3);box-shadow:0 8px 24px #4169e13b}.secondary{border:1px solid var(--border);background:#ffffffc7}
+    .hero-note{margin-top:16px;color:#9298a7;font-size:12px}.hero-preview{margin:55px auto 0;max-width:1030px;padding:12px;border:1px solid #ffffffed;border-radius:25px;background:#ffffff7a;box-shadow:0 35px 90px #31457e1a,0 5px 18px #31457e0a}
+    .hero-preview img,.gallery-card img{display:block;width:100%;height:auto;border-radius:16px;object-fit:cover}.trust-strip{display:flex;justify-content:center;flex-wrap:wrap;gap:12px 30px;padding:22px 0 70px;color:#727b90;font-size:12px}.trust-item:before{content:"✓";color:#5f7bdc;font-weight:800;margin-right:7px}
+    section.content-section{padding:72px 0}.section-heading{max-width:670px;margin:0 auto 40px;text-align:center}.section-label{color:var(--blue);font-size:11px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase}
+    .section-heading h2{margin:12px 0;font-size:clamp(30px,4.5vw,46px);line-height:1.22;letter-spacing:-1.7px}.section-heading p{margin:0;color:var(--muted);font-size:14px;line-height:1.9}
+    .feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.feature-card{min-height:200px;padding:25px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);box-shadow:0 8px 30px #26345d08;transition:transform .22s,box-shadow .22s}
+    .feature-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px #26345d12}.feature-icon{width:44px;height:44px;display:grid;place-items:center;margin-bottom:20px;border:1px solid #e6ebfb;border-radius:14px;background:#f0f3ff;color:#5474dc;font-size:20px}
+    .feature-card h3,.gallery-caption h3{margin:0 0 8px;font-size:16px;letter-spacing:-.3px}.feature-card p,.gallery-caption p{margin:0;color:var(--muted);font-size:13px;line-height:1.85}
+    .gallery-section{background:linear-gradient(180deg,transparent,rgba(233,238,252,.58) 18%,rgba(233,238,252,.58) 82%,transparent)}.gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+    .gallery-card{padding:12px;border:1px solid #ffffffed;border-radius:22px;background:#ffffffbf;box-shadow:0 10px 35px #31457e0b}.gallery-card.wide{grid-column:1/-1}.gallery-card.wide img{max-height:540px;object-fit:contain;background:#fff}
+    .gallery-caption{padding:16px 10px 8px}.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.step{padding:24px;border:1px solid var(--border);border-radius:20px;background:#ffffffa8}.step-num{color:var(--blue);font-size:12px;font-weight:800;letter-spacing:1px}.step h3{margin:10px 0 7px;font-size:16px}.step p{margin:0;color:var(--muted);font-size:13px;line-height:1.85}
+    .cta{padding:55px 28px;border:1px solid #ffffffed;border-radius:28px;background:radial-gradient(ellipse at 50% 0%,#e4eaff,transparent 70%),#ffffffa8;text-align:center;box-shadow:0 20px 60px #31457e0b}.cta h2{margin:12px 0;font-size:clamp(30px,5vw,48px);line-height:1.2;letter-spacing:-1.8px}.cta p{max-width:600px;margin:0 auto;color:var(--muted);font-size:14px}.cta .hero-actions{margin-top:23px}
+    .warning{max-width:760px;margin:18px auto 0;color:#858b9a;font-size:12px;line-height:1.8}.footer{padding:35px 0 42px;border-top:1px solid var(--border);color:var(--muted);font-size:12px}.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}.footer-links{display:flex;gap:20px}.footer a:hover{color:var(--blue)}
+    .reveal{opacity:0;transform:translateY(12px);transition:opacity .6s,transform .6s}.reveal.visible{opacity:1;transform:none}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}*{transition:none!important}}
+    @media(max-width:800px){.nav-links{gap:14px}.nav-links a{font-size:12px}.feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.steps{grid-template-columns:1fr}.hero{padding-top:70px}}
+    @media(max-width:600px){.container{width:calc(100% - 30px)}nav{min-height:66px}.nav-links{display:none}.hero{padding:60px 0 48px}.hero h1{letter-spacing:-2.5px}.hero-description{font-size:15px}.hero-preview{margin-top:38px;padding:7px}.trust-strip{padding-bottom:45px}.feature-grid,.gallery-grid{grid-template-columns:1fr}.gallery-card.wide{grid-column:auto}.feature-card{min-height:0}.content-section{padding:55px 0!important}.section-heading{margin-bottom:28px}.cta{padding:38px 18px}.footer-inner{align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body>
+  <header class="nav-wrap">
+    <nav class="container" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="MediaFetch home"><img class="brand-icon" src="assets/Untitled-macOS-Default-1024@1x.png" alt="MediaFetch app icon"><span>MediaFetch</span></a>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="#features" data-i18n="navFeatures">功能特色</a>
+          <a href="#screenshots" data-i18n="navScreenshots">介面預覽</a>
+          <a href="#how" data-i18n="navHow">如何開始</a>
+        </div>
+        <button class="language-button" id="languageToggle" type="button" aria-label="Switch to English">EN / 中</button>
+      </div>
+    </nav>
+  </header>
+  <main id="top">
+    <section class="hero container">
+      <div class="eyebrow"><span class="dot"></span><span data-i18n="eyebrow">開源 macOS 專案 · Version 1.0.0</span></div>
+      <h1><span data-i18n="heroLine1">讓媒體下載，</span><br><span class="gradient" data-i18n="heroLine2">回歸簡單。</span></h1>
+      <p class="hero-description" data-i18n="heroDescription">MediaFetch 是一款為 macOS 打造的開源媒體下載工具。以原生介面管理下載任務，讓影片下載與檔案整理更直覺。</p>
+      <div class="hero-actions">
+        <a class="button primary" href="https://github.com/jyps1090013-stack/MediaFetch/releases" target="_blank" rel="noopener noreferrer" data-i18n="downloadButton">取得 MediaFetch ↗</a>
+        <a class="button secondary" href="https://github.com/jyps1090013-stack/MediaFetch" target="_blank" rel="noopener noreferrer" data-i18n="sourceButton">探索原始碼 ↗</a>
+      </div>
+      <p class="hero-note" data-i18n="heroNote">macOS 原生體驗 · 開源自由 · 由開發者持續改進</p>
+      <div class="hero-preview reveal"><img src="assets/hero-screenshot.png" alt="MediaFetch 主畫面預覽" width="1600" height="900"></div>
+    </section>
+    <div class="container trust-strip">
+      <span class="trust-item" data-i18n="trustOpen">開源專案</span><span class="trust-item" data-i18n="trustNative">以 SwiftUI 打造</span><span class="trust-item" data-i18n="trustControl">下載進度與日誌</span><span class="trust-item" data-i18n="trustConfig">可調整的下載設定</span>
+    </div>
+    <section class="content-section container" id="features">
+      <div class="section-heading reveal"><span class="section-label">FEATURES</span><h2 data-i18n="featuresTitle">為日常下載而設計。</h2><p data-i18n="featuresDescription">透過清楚的任務流程與原生介面，讓下載工作更容易管理。</p></div>
+      <div class="feature-grid">
+        <article class="feature-card reveal"><div class="feature-icon">⌘</div><h3 data-i18n="feature1Title">原生 macOS 介面</h3><p data-i18n="feature1Text">使用 SwiftUI 建構，融入熟悉的 Mac 操作方式，讓介面與系統保持一致。</p></article>
+        <article class="feature-card reveal"><div class="feature-icon">⇩</div><h3 data-i18n="feature2Title">整合下載流程</h3><p data-i18n="feature2Text">透過 yt-dlp 處理支援的媒體來源，並以任務介面追蹤下載進度。</p></article>
+        <article class="feature-card reveal"><div class="feature-icon">≡</div><h3 data-i18n="feature3Title">清楚的下載日誌</h3><p data-i18n="feature3Text">查看下載過程中的訊息，讓問題排查與任務狀態更容易理解。</p></article>
+        <article class="feature-card reveal"><div class="feature-icon">▤</div><h3 data-i18n="feature4Title">格式與品質選擇</h3><p data-i18n="feature4Text">在支援的下載任務中解析可用格式，依需求選擇合適的媒體品質。</p></article>
+        <article class="feature-card reveal"><div class="feature-icon">▶</div><h3 data-i18n="feature5Title">FFmpeg 媒體工具</h3><p data-i18n="feature5Text">搭配 FFmpeg 支援相關媒體處理工作；實際功能取決於工具設定。</p></article>
+        <article class="feature-card reveal"><div class="feature-icon">⚙</div><h3 data-i18n="feature6Title">設定由你掌握</h3><p data-i18n="feature6Text">管理工具路徑與輸出位置，依照自己的工作方式安排下載任務。</p></article>
+      </div>
+    </section>
+    <section class="content-section gallery-section" id="screenshots">
+      <div class="container">
+        <div class="section-heading reveal"><span class="section-label">THE INTERFACE</span><h2 data-i18n="galleryTitle">每個步驟，都一目了然。</h2><p data-i18n="galleryDescription">看看 MediaFetch 的實際介面，從建立任務到查看下載日誌。</p></div>
+        <div class="gallery-grid">
+          <article class="gallery-card reveal"><img src="assets/screenshot-new-task.png" alt="新增下載任務" width="1200" height="760" loading="lazy"><div class="gallery-caption"><h3 data-i18n="shot2Title">新增下載任務</h3><p data-i18n="caption2Text">從連結開始你的下載流程。</p></div></article>
+          <article class="gallery-card reveal"><img src="assets/screenshot-format-selection.png" alt="格式與品質選擇" width="1200" height="760" loading="lazy"><div class="gallery-caption"><h3 data-i18n="shot3Title">選擇下載格式</h3><p data-i18n="caption3Text">檢視解析結果與可用的下載選項。</p></div></article>
+          <article class="gallery-card reveal"><img src="assets/screenshot-downloading.png" alt="下載進行中" width="1200" height="760" loading="lazy"><div class="gallery-caption"><h3 data-i18n="shot4Title">下載進行中</h3><p data-i18n="caption4Text">查看下載任務的進行狀態。</p></div></article>
+          <article class="gallery-card reveal"><img src="assets/screenshot-complete.png" alt="下載完成" width="1200" height="760" loading="lazy"><div class="gallery-caption"><h3 data-i18n="shot5Title">下載完成</h3><p data-i18n="caption5Text">清楚確認任務完成狀態。</p></div></article>
+          <article class="gallery-card wide reveal"><img src="assets/screenshot-logs.png" alt="詳細下載日誌" width="1600" height="900" loading="lazy"><div class="gallery-caption"><h3 data-i18n="shot6Title">詳細下載日誌</h3><p data-i18n="caption6Text">需要排查問題時，日誌能提供更多資訊。</p></div></article>
+        </div>
+      </div>
+    </section>
+    <section class="content-section container" id="how">
+      <div class="section-heading reveal"><span class="section-label">GET STARTED</span><h2 data-i18n="workflowTitle">從下載到開始使用。</h2><p data-i18n="workflowDescription">從 GitHub 取得版本，依照專案說明完成必要設定。</p></div>
+      <div class="steps">
+        <article class="step reveal"><span class="step-num">STEP 01</span><h3 data-i18n="step1Title">取得應用程式</h3><p data-i18n="step1Text">前往 GitHub Releases，查看最新發佈內容並下載對應檔案。</p></article>
+        <article class="step reveal"><span class="step-num">STEP 02</span><h3 data-i18n="step2Title">完成環境設定</h3><p data-i18n="step2Text">依照 README 安裝或設定 yt-dlp 與 FFmpeg，再確認工具路徑。</p></article>
+        <article class="step reveal"><span class="step-num">STEP 03</span><h3 data-i18n="step3Title">開始下載</h3><p data-i18n="step3Text">開啟 MediaFetch、建立下載任務，並在介面中查看進度。</p></article>
+      </div>
+    </section>
+    <section class="content-section container">
+      <div class="cta reveal"><span class="section-label" data-i18n="ctaEyebrow">OPEN SOURCE · BUILT FOR MAC</span><h2 data-i18n="ctaTitle">讓 MediaFetch<br>成為你的下載夥伴。</h2><p data-i18n="ctaDescription">探索最新版本、閱讀設定說明，或直接瀏覽原始碼。</p><div class="hero-actions"><a class="button primary" href="https://github.com/jyps1090013-stack/MediaFetch/releases" target="_blank" rel="noopener noreferrer" data-i18n="ctaDownload">前往下載頁面 ↗</a><a class="button secondary" href="https://github.com/jyps1090013-stack/MediaFetch" target="_blank" rel="noopener noreferrer" data-i18n="ctaSource">在 GitHub 查看 ↗</a></div><p class="warning" data-i18n="warningNote">注意：macOS 首次開啟時可能顯示安全性提示。請先閱讀 GitHub 專案中的安裝說明，並確認下載檔案來源。</p></div>
+    </section>
+  </main>
+  <footer class="footer"><div class="container footer-inner"><span data-i18n="footerCopyright">© 2026 MediaFetch · 開源 macOS 專案</span><div class="footer-links"><a href="https://github.com/jyps1090013-stack/MediaFetch" target="_blank" rel="noopener noreferrer" data-i18n="footerGitHub">GitHub</a><a href="https://github.com/jyps1090013-stack/MediaFetch/releases" target="_blank" rel="noopener noreferrer" data-i18n="footerReleases">所有版本</a></div></div></footer>
+<script>
+const translations = {
+ "zh-Hant": {
+  navFeatures:"功能特色",navScreenshots:"介面預覽",navHow:"如何開始",eyebrow:"開源 macOS 專案 · Version 1.0.0",
+  heroLine1:"讓媒體下載，",heroLine2:"回歸簡單。",heroDescription:"MediaFetch 是一款為 macOS 打造的開源媒體下載工具。以原生介面管理下載任務，讓影片下載與檔案整理更直覺。",
+  downloadButton:"取得 MediaFetch ↗",sourceButton:"探索原始碼 ↗",heroNote:"macOS 原生體驗 · 開源自由 · 由開發者持續改進",trustOpen:"開源專案",trustNative:"以 SwiftUI 打造",trustControl:"下載進度與日誌",trustConfig:"可調整的下載設定",
+  featuresTitle:"為日常下載而設計。",featuresDescription:"透過清楚的任務流程與原生介面，讓下載工作更容易管理。",
+  feature1Title:"原生 macOS 介面",feature1Text:"使用 SwiftUI 建構，融入熟悉的 Mac 操作方式，讓介面與系統保持一致。",
+  feature2Title:"整合下載流程",feature2Text:"透過 yt-dlp 處理支援的媒體來源，並以任務介面追蹤下載進度。",
+  feature3Title:"清楚的下載日誌",feature3Text:"查看下載過程中的訊息，讓問題排查與任務狀態更容易理解。",
+  feature4Title:"格式與品質選擇",feature4Text:"在支援的下載任務中解析可用格式，依需求選擇合適的媒體品質。",
+  feature5Title:"FFmpeg 媒體工具",feature5Text:"搭配 FFmpeg 支援相關媒體處理工作；實際功能取決於工具設定。",
+  feature6Title:"設定由你掌握",feature6Text:"管理工具路徑與輸出位置，依照自己的工作方式安排下載任務。",
+  galleryTitle:"每個步驟，都一目了然。",galleryDescription:"看看 MediaFetch 的實際介面，從建立任務到查看下載日誌。",
+  shot2Title:"新增下載任務",caption2Text:"從連結開始你的下載流程。",shot3Title:"選擇下載格式",caption3Text:"檢視解析結果與可用的下載選項。",
+  shot4Title:"下載進行中",caption4Text:"查看下載任務的進行狀態。",shot5Title:"下載完成",caption5Text:"清楚確認任務完成狀態。",
+  shot6Title:"詳細下載日誌",caption6Text:"需要排查問題時，日誌能提供更多資訊。",
+  workflowTitle:"從下載到開始使用。",workflowDescription:"從 GitHub 取得版本，依照專案說明完成必要設定。",
+  step1Title:"取得應用程式",step1Text:"前往 GitHub Releases，查看最新發佈內容並下載對應檔案。",
+  step2Title:"完成環境設定",step2Text:"依照 README 安裝或設定 yt-dlp 與 FFmpeg，再確認工具路徑。",
+  step3Title:"開始下載",step3Text:"開啟 MediaFetch、建立下載任務，並在介面中查看進度。",
+  ctaEyebrow:"OPEN SOURCE · BUILT FOR MAC",ctaTitle:"讓 MediaFetch<br>成為你的下載夥伴。",ctaDescription:"探索最新版本、閱讀設定說明，或直接瀏覽原始碼。",
+  ctaDownload:"前往下載頁面 ↗",ctaSource:"在 GitHub 查看 ↗",warningNote:"注意：macOS 首次開啟時可能顯示安全性提示。請先閱讀 GitHub 專案中的安裝說明，並確認下載檔案來源。",
+  footerCopyright:"© 2026 MediaFetch · 開源 macOS 專案",footerGitHub:"GitHub",footerReleases:"所有版本"
+ },
+ "en": {
+  navFeatures:"Features",navScreenshots:"Screenshots",navHow:"Get started",eyebrow:"Open-source macOS project · Version 1.0.0",
+  heroLine1:"Media downloads,",heroLine2:"made simple.",heroDescription:"MediaFetch is an open-source media downloader built for macOS. Manage download tasks in a native-feeling interface and keep your workflow clear and simple.",
+  downloadButton:"Get MediaFetch ↗",sourceButton:"Explore the source ↗",heroNote:"A native macOS experience · Open source · Built with care",trustOpen:"Open-source project",trustNative:"Built with SwiftUI",trustControl:"Progress and logs",trustConfig:"Configurable settings",
+  featuresTitle:"Designed for everyday downloads.",featuresDescription:"A clear task workflow and a native interface make downloads easier to manage.",
+  feature1Title:"Native macOS interface",feature1Text:"Built with SwiftUI and designed to feel at home alongside familiar Mac workflows.",
+  feature2Title:"Integrated download workflow",feature2Text:"Uses yt-dlp for supported media sources and tracks progress in a task-focused interface.",
+  feature3Title:"Clear download logs",feature3Text:"Review messages from the download process to better understand task status and troubleshoot issues.",
+  feature4Title:"Format and quality choices",feature4Text:"Inspect available formats for supported tasks and choose a suitable media quality.",
+  feature5Title:"FFmpeg media tools",feature5Text:"Works with FFmpeg for supported media processing tasks; availability depends on tool configuration.",
+  feature6Title:"Settings you control",feature6Text:"Configure tool paths and output locations to fit your own workflow.",
+  galleryTitle:"Every step, clearly presented.",galleryDescription:"Explore the MediaFetch interface, from creating a task to reviewing download logs.",
+  shot2Title:"Create a download task",caption2Text:"Start your workflow with a media link.",shot3Title:"Choose a format",caption3Text:"Review parsed results and available download options.",
+  shot4Title:"Download in progress",caption4Text:"See the current state of a download task.",shot5Title:"Download complete",caption5Text:"Clearly identify completed tasks.",
+  shot6Title:"Detailed download logs",caption6Text:"Logs provide more information when troubleshooting is needed.",
+  workflowTitle:"From download to first launch.",workflowDescription:"Get a release from GitHub and follow the project instructions to configure the required tools.",
+  step1Title:"Get the application",step1Text:"Visit GitHub Releases, review the latest release, and download the appropriate file.",
+  step2Title:"Configure dependencies",step2Text:"Follow the README to install or configure yt-dlp and FFmpeg, then verify their paths.",
+  step3Title:"Start downloading",step3Text:"Open MediaFetch, create a download task, and follow its status in the interface.",
+  ctaEyebrow:"OPEN SOURCE · BUILT FOR MAC",ctaTitle:"Make MediaFetch<br>your download companion.",ctaDescription:"Explore the latest release, read the setup instructions, or browse the source code.",
+  ctaDownload:"Visit the download page ↗",ctaSource:"Explore on GitHub ↗",warningNote:"Note: macOS may display a security warning on first launch. Read the installation instructions in the GitHub repository and verify the origin of the downloaded file.",
+  footerCopyright:"© 2026 MediaFetch · Open-source macOS project",footerGitHub:"GitHub",footerReleases:"All releases"
+ }
+};
+let currentLanguage="zh-Hant";
+const languageToggle=document.getElementById("languageToggle");
+function setLanguage(language){
+ currentLanguage=language;document.documentElement.lang=language==="zh-Hant"?"zh-Hant":"en";
+ document.querySelectorAll("[data-i18n]").forEach(el=>{const value=translations[language][el.dataset.i18n];if(value===undefined)return;if(el.dataset.i18n==="ctaTitle")el.innerHTML=value;else el.textContent=value;});
+ languageToggle.textContent=language==="zh-Hant"?"EN / 中":"中 / EN";
+ languageToggle.setAttribute("aria-label",language==="zh-Hant"?"Switch to English":"切換至繁體中文");
+ document.title=language==="zh-Hant"?"MediaFetch — 讓媒體下載，回歸簡單。":"MediaFetch — Your Media, Made Simple.";
+}
+languageToggle.addEventListener("click",()=>setLanguage(currentLanguage==="zh-Hant"?"en":"zh-Hant"));
+const revealElements=document.querySelectorAll(".reveal");
+if("IntersectionObserver" in window){const observer=new IntersectionObserver((entries,obs)=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("visible");obs.unobserve(entry.target);}}),{threshold:.12});revealElements.forEach(el=>observer.observe(el));}
+else revealElements.forEach(el=>el.classList.add("visible"));
+setLanguage("zh-Hant");
+</script>
+</body>
+</html>
